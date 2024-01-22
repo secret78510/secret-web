@@ -1,0 +1,12 @@
+.newsImg-fit{
+  height: 400px;
+  width: 500px;
+  object-fit: cover;
+  vertical-align: bottom;
+}
+@media (max-width: 575.98px) {
+  .newsImg-fit{
+    height:300px;
+    width: 300px;
+  }
+}
