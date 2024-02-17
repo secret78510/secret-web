@@ -139,6 +139,16 @@ export default {
       });
       this.returnShop();
     },
+    useAllCoupon(carts) {
+      const coupons = carts.filter(((item) => item.coupon));
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
+      const { code } = coupons[0].coupon;
+      this.$http.post(api, { data: { code } }).then((response) => {
+        if (response.data.success) {
+          this.getCart();
+        }
+      });
+    },
     addCoupon() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
       const coupon = {
@@ -160,52 +170,65 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
-        this.cart = response.data.data;
-        const newCart = JSON.parse(JSON.stringify(this.cart));
-        const cartsMap = new Map();
-        newCart.carts.forEach((item) => {
-          cartsMap.set(item.product.id, item);
-        });
-        cartsMap.forEach((mapItem) => {
-          const MapItem = mapItem;
-          MapItem.qty = 0;
-          MapItem.final_total = 0;
-          MapItem.total = 0;
-        });
-        cartsMap.forEach((mapItem) => {
-          const MapItem = mapItem;
-          this.cart.carts.forEach((item) => {
-            if (item.product_id === MapItem.product_id) {
-              MapItem.qty += item.qty;
-              MapItem.final_total = item.final_total;
-              MapItem.total = item.total;
-            }
+        const coupons = response.data.data.carts?.filter(((item) => item.coupon));
+        if (coupons?.length && coupons.length < response.data?.data?.carts?.length) {
+          this.useAllCoupon(response.data.data.carts);
+        } else {
+          this.cart = response.data.data;
+          const newCart = JSON.parse(JSON.stringify(this.cart));
+          const cartsMap = new Map();
+          newCart.carts.forEach((item) => {
+            cartsMap.set(item.product.id, item);
           });
-        });
-        this.cart.carts.splice(0, this.cart.carts.length);
-        cartsMap.forEach((map) => this.cart.carts.push(map));
-        this.isLoading = false;
+          cartsMap.forEach((mapItem) => {
+            const MapItem = mapItem;
+            MapItem.qty = 0;
+            MapItem.final_total = 0;
+            MapItem.total = 0;
+          });
+          cartsMap.forEach((mapItem) => {
+            const MapItem = mapItem;
+            this.cart.carts.forEach((item) => {
+              if (item.product_id === MapItem.product_id) {
+                MapItem.qty += item.qty;
+                MapItem.final_total = item.final_total;
+                MapItem.total = item.total;
+              }
+            });
+          });
+          this.cart.carts.splice(0, this.cart.carts.length);
+          cartsMap.forEach((map) => this.cart.carts.push(map));
+          this.isLoading = false;
+        }
       });
     },
     addCart() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
       let delApi = '';
       let cart = {};
-      this.$http.get(api).then((response) => {
-        this.delCart = response.data.data;
-        this.delCart.carts.forEach((item) => {
-          delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart/${item.id}`;
-          this.$http.delete(delApi).then(() => {});
+      const vm = this;
+      (async function IIFE() {
+        await vm.$http.get(api).then((response) => {
+          vm.delCart = response.data.data;
         });
-        this.cart.carts.forEach((item) => {
+        await vm.delCart.carts.forEach(async (item) => {
+          delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart/${item.id}`;
+          await vm.$http.delete(delApi).then(() => {});
+        });
+        await vm.cart.carts.forEach(async (item) => {
           cart = {
             product_id: item.product.id,
             qty: item.qty,
           };
-          this.$http.post(api, { data: cart }).then(() => {});
+          await vm.$http.post(api, { data: cart }).then(() => { });
         });
-      });
-      this.$router.push('/order');
+        if (vm.cart.carts?.length && vm.cart.carts.some((item) => (item?.coupon))) {
+          const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
+          const code = vm.cart.carts.find((item) => (item?.coupon))?.coupon?.code;
+          await vm.$http.post(couponApi, { data: { code } }).then(() => {});
+        }
+        vm.$router.push('/order');
+      }());
     },
     finalTotal() {
       this.total = 0;

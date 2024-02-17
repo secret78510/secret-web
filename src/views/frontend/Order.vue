@@ -92,7 +92,7 @@
                 class="form-control"
                 cols="30"
                 rows="10"
-                v-model="form.user.message"
+                v-model="form.message"
               ></textarea>
             </div>
             <div class="text-right">
@@ -116,6 +116,7 @@ export default {
           tel: '',
           address: '',
         },
+        message: '',
       },
       userCreditCard: '',
     };
@@ -123,9 +124,10 @@ export default {
   methods: {
     createOrder() {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/order`;
-      const order = this.form;
+      const { user } = this.form;
+      const { message } = this.form;
       this.isLoading = true;
-      this.$http.post(api, { data: order }).then((response) => {
+      this.$http.post(api, { data: { user, message } }).then((response) => {
         if (response.data.success) {
           this.isLoading = false;
           this.$router.push(`/customer_checkout/${response.data.orderId}`);

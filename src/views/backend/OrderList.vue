@@ -152,7 +152,7 @@ export default {
       });
     },
     updateOrders() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/order/${this.orders.id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/order/${this.tempOrder.id}`;
       this.$http.put(api, { data: this.tempOrder }).then(() => {
         $('#ordersModal').modal('hide');
         this.getOrders();

@@ -31,13 +31,13 @@
               <tr v-for="item in order.products" :key="item.id">
                 <td class="align-middle">{{ item.product.title }}</td>
                 <td class="align-middle">{{ item.qty }}{{ item.product.unit }}</td>
-                <td class="align-middle text-right">{{ item.final_total }}元</td>
+                <td class="align-middle">{{ item.final_total }}元</td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
                 <td colspan="2" class="text-right">總計</td>
-                <td class="text-right">{{ order.total }}元</td>
+                <td>{{ order.total }}元</td>
               </tr>
             </tfoot>
           </table>
@@ -109,6 +109,7 @@ export default {
   mounted() {
     this.orderId = this.$route.params.orderId; // 取得網址的ID
     this.getOrder();
+    this.$store.dispatch('getCart');
   },
 };
 </script>
