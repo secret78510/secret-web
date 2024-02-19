@@ -25,11 +25,11 @@
           <td>
             <ul class="list-unstyled">
               <li v-for="(product, i) in item.products" :key="i">
-                數量：{{ product.qty }}
+               {{ product.product.title}} (數量：{{ product.qty }})
               </li>
             </ul>
           </td>
-          <td class="text-right">{{ item.total | currency }}</td>
+          <td>{{ item.total | currency }}</td>
           <td>
             <strong v-if="item.is_paid" class="text-success">已付款</strong>
             <span v-else class="text-muted">尚未起用</span>
@@ -129,6 +129,7 @@ export default {
     return {
       orders: {},
       tempOrder: {
+        id: '',
         create_at: 0,
         is_paid: 0,
         message: '',

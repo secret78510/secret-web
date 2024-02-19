@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isLogined">
     <AlertMessage/>
     <form class="form" @submit.prevent="signin">
       <h1>登入</h1>
@@ -33,6 +33,7 @@ export default {
         username: '',
         password: '',
       },
+      isLogined: true,
     };
   },
   components: {
@@ -62,6 +63,8 @@ export default {
     const hexToken = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     if (hexToken && Number(hexTokenExpired) > Date.now()) {
       this.$router.push('/manage/product');
+    } else {
+      this.isLogined = false;
     }
   },
 };

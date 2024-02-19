@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="container pt-5">
-      <div class="text-right mt-5">
-        <button class="btn btn-primary" @click="openCouponModal(true)">建立新的優惠券</button>
+  <div class="wrap">
+    <div class="container">
+      <div class="text-right pt-4">
+        <button class="btn btn-secondary" @click="openCouponModal(true)">建立新的優惠券</button>
       </div>
       <table class="table mt-4">
         <thead>
@@ -235,3 +235,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss"  scoped>
+.wrap {
+  margin-top: 67px;
+}
+</style>

@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="wrap">
     <div v-if="isLoading" class="loading">
       <div class="loading-item fas fas fa-apple-alt"></div>
       <div class="loading-item fas fa-lemon"></div>
       <div class="loading-item fas fa-carrot"></div>
     </div>
     <div class="container">
-    <div class="text-right">
-      <button class="btn btn-primary" @click="openModal(true)">建立產品列表</button>
+    <div class="text-right pt-4">
+      <button class="btn btn-secondary" @click="openModal(true)">建立產品列表</button>
     </div>
     <table class="table mt-4">
       <thead>
@@ -354,4 +354,7 @@ export default {
 </script>
 
 <style lang="scss"  scoped>
+.wrap {
+  margin-top: 67px;
+}
 </style>
