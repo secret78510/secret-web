@@ -11,7 +11,7 @@
             <th>折扣百分比</th>
             <th>到期日</th>
             <th>是否啟用</th>
-            <th>編輯</th>
+            <th width="120">編輯</th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             </td>
             <td>
               <button
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-primary btn-sm mr-1"
                 @click="openCouponModal(false, item)"
               >編輯</button>
               <button class="btn btn-outline-danger btn-sm" @click="delModal(item)">刪除</button>
@@ -172,13 +172,13 @@ export default {
   },
   watch: {
     due_date() {
-      const timestamp = Math.floor(new Date(this.due_date) / 1000);
+      const timestamp = Math.floor(new Date(this.due_date));
       this.tempCoupon.due_date = timestamp;
     },
   },
   methods: {
     getCoupons(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/coupons?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/admin/coupons?page=${page}`;
       this.$http.get(api).then((response) => {
         this.coupons = response.data.coupons;
         this.pagination = response.data.pagination;
@@ -186,14 +186,14 @@ export default {
     },
     updateCoupon() {
       if (this.isNew) {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/coupon`;
+        const api = `${process.env.VUE_APP_APIPATH}/api/admin/coupon`;
         this.$http.post(api, { data: this.tempCoupon }).then(() => {
           $('#couponModal').modal('hide');
           this.getCoupons();
         });
       } else {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/coupon/${this.tempCoupon.id}`;
-        this.due_date = new Date(this.tempCoupon.due_date * 1000);
+        const api = `${process.env.VUE_APP_APIPATH}/api/admin/coupon/${this.tempCoupon.id}`;
+
         this.$http.put(api, { data: this.tempCoupon }).then(() => {
           $('#couponModal').modal('hide');
           this.getCoupons();
@@ -208,9 +208,9 @@ export default {
       } else {
         this.tempCoupon = { ...item };
         const dateAndTime = new Date(
-          this.tempCoupon.due_date * 1000,
+          this.tempCoupon.due_date,
         ).toISOString();
-        this.due_date = dateAndTime['0'];
+        this.due_date = dateAndTime.split('T')['0'];
       }
     },
     delModal(item) {
@@ -218,7 +218,7 @@ export default {
       $('#delCouponModal').modal('show');
     },
     delCoupon() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/coupon/${this.tempCoupon.id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/admin/coupon/${this.tempCoupon.id}`;
       this.$http.delete(api).then((response) => {
         if (response.data.success) {
           $('#delCouponModal').modal('hide');

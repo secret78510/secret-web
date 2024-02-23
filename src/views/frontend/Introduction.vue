@@ -9,7 +9,7 @@
       <div class="container my-5">
         <div class="row">
           <div class="col-md-6">
-            <img class="img-fit" :src="product.image"/>
+            <img class="img-fit" :src="product.imageUrl"/>
           </div>
           <div class="col-md-6">
             <ul class="list">
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     getProduct(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/product/${id}`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
         this.isLoading = false;
@@ -105,7 +105,7 @@ export default {
       });
     },
     addCart(id, qty = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       this.status.loadingItem = id;
       const cart = {
         product_id: id,

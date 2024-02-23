@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     createOrder() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/order`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/order`;
       const { user } = this.form;
       const { message } = this.form;
       this.isLoading = true;

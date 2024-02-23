@@ -1,4 +1,4 @@
-export default function () {
-  const date = new Date();
+export default function (timestamp) {
+  const date = new Date(timestamp);
   return date.toLocaleDateString();
 }

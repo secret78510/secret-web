@@ -29,9 +29,9 @@
             </thead>
             <tbody>
               <tr v-for="item in order.products" :key="item.id">
-                <td class="align-middle">{{ item.product.title }}</td>
-                <td class="align-middle">{{ item.qty }}{{ item.product.unit }}</td>
-                <td class="align-middle">{{ item.final_total }}元</td>
+                <td class="align-middle">{{ item.title }}</td>
+                <td class="align-middle">{{ item.qty }}{{ item.unit }}</td>
+                <td class="align-middle">{{ item.price ||  item.origin_price }}元</td>
               </tr>
             </tbody>
             <tfoot>
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     getOrder() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/order/${this.orderId}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/order/${this.orderId}`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
         this.order = response.data.order;
@@ -97,7 +97,7 @@ export default {
       });
     },
     payOrder() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/pay/${this.orderId}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/pay/${this.orderId}`;
       this.isLoading = true;
       this.$http.post(api).then(() => {
         this.getOrder();

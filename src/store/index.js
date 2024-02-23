@@ -45,7 +45,7 @@ export default new Vuex.Store({
   },
   actions: {
     getCart(context) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       context.commit('LOADING', true);
       axios.get(api).then((response) => {
         context.commit('LOADING', false);

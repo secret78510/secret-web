@@ -43,7 +43,7 @@
                 <div class="card border-0 shadow-sm">
                   <div
                     style="height: 200px; background-size: cover; background-position: center"
-                    :style="{backgroundImage: `url(${item.image})`}"
+                    :style="{backgroundImage: `url(${item.imageUrl})`}"
                   ></div>
                   <div class="card-body px-3 pb-1">
                     <div class="clearfix">
@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     getProducts() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/products/all`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/products/all`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
         this.isLoading = false;
@@ -179,7 +179,7 @@ export default {
       }
     },
     getProduct(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/product/${id}`;
       this.status.loadingGetProduct = id;
       this.$http.get(api).then(() => {
         this.status.loadingGetProduct = '';
@@ -188,7 +188,7 @@ export default {
       });
     },
     addCart(id, qty = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       this.isLoading = true;
       this.status.loadingAddCart = id;
       const cart = {

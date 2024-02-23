@@ -35,19 +35,19 @@
               <td class="align-middle">
                 {{ item.product.title }}
               </td>
-              <td class="align-middle p-0">
-                <select v-model="item.qty" @change="finalTotal">
-                  <option :value="num" v-for="num in 30" :key="num">
-                    {{ num }} {{ item.product.unit }}</option>
-                </select>
+              <td class="align-middle p-0" @change="finalTotal">
+                {{ item.qty }} {{ item.product.unit }}
               </td>
               <td class="align-middle smallPhoneHide">{{ item.product.price | currency }}</td>
-              <td class="align-middle">{{ item.qty * item.final_total | currency }}</td>
+              <td class="align-middle">
+                {{ item.qty * (item.product.price ? item.product.price : item.product.origin_price)
+                 | currency }}
+              </td>
               <td class="align-middle">
                 <button
                   type="button"
                   class="btn btn-outline-danger btn-sm"
-                  @click="removeCart(item.id)"
+                  @click="removeCart(item.product_id)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
@@ -85,8 +85,7 @@
           </div>
           <div class="clearfix">
             <p
-              class="text-danger float-right clearfix"
-              style="margin-right:132px"
+              class="text-danger float-right clearfix text-align-left"
               v-if="error.length > 1"
             >{{ this.error }}</p>
           </div>
@@ -117,13 +116,14 @@ export default {
       cart: {},
       final_total: 0,
       delCart: {},
+      origin_carts: [],
     };
   },
   methods: {
     returnShop() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       this.$http.get(api).then(() => {
-        if (this.cart.carts.length === 1) {
+        if (this.cart.carts.length === 0) {
           this.getCart();
           this.$bus.$emit('message:push', '購物車內無商品，請選購。');
           this.$router.push('/product_list');
@@ -131,17 +131,22 @@ export default {
       });
     },
     removeCart(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart/${id}`;
-      this.isLoading = true;
-      this.$http.delete(api).then(() => {
-        this.isLoading = false;
-        this.getCart();
+      const carts = this.origin_carts.filter((item) => item.product_id === id);
+      const vm = this;
+      vm.isLoading = true;
+      const aa = carts.map(async (item) => {
+        const api = `${process.env.VUE_APP_APIPATH}/api/cart/${item.id}`;
+        await vm.$http.delete(api).then(() => { });
       });
-      this.returnShop();
+      Promise.allSettled([...aa]).then(() => {
+        vm.isLoading = false;
+        vm.getCart();
+        vm.returnShop();
+      });
     },
     useAllCoupon(carts) {
       const coupons = carts.filter(((item) => item.coupon));
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/coupon`;
       const { code } = coupons[0].coupon;
       this.$http.post(api, { data: { code } }).then((response) => {
         if (response.data.success) {
@@ -150,7 +155,7 @@ export default {
       });
     },
     addCoupon() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/coupon`;
       const coupon = {
         code: this.couponCode,
       };
@@ -162,18 +167,19 @@ export default {
           this.error = '';
         } else {
           this.isLoading = false;
-          this.error = '請輸入正確的優惠卷';
+          this.error = response.data.message;
         }
       });
     },
     getCart() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
         const coupons = response.data.data.carts?.filter(((item) => item.coupon));
         if (coupons?.length && coupons.length < response.data?.data?.carts?.length) {
           this.useAllCoupon(response.data.data.carts);
         } else {
+          this.origin_carts = [...response.data.data.carts];
           this.cart = response.data.data;
           const newCart = JSON.parse(JSON.stringify(this.cart));
           const cartsMap = new Map();
@@ -203,7 +209,7 @@ export default {
       });
     },
     addCart() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/cart`;
       let delApi = '';
       let cart = {};
       const vm = this;
@@ -212,7 +218,7 @@ export default {
           vm.delCart = response.data.data;
         });
         await vm.delCart.carts.forEach(async (item) => {
-          delApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/cart/${item.id}`;
+          delApi = `${process.env.VUE_APP_APIPATH}/api/cart/${item.id}`;
           await vm.$http.delete(delApi).then(() => {});
         });
         await vm.cart.carts.forEach(async (item) => {
@@ -223,7 +229,7 @@ export default {
           await vm.$http.post(api, { data: cart }).then(() => { });
         });
         if (vm.cart.carts?.length && vm.cart.carts.some((item) => (item?.coupon))) {
-          const couponApi = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/coupon`;
+          const couponApi = `${process.env.VUE_APP_APIPATH}/api/coupon`;
           const code = vm.cart.carts.find((item) => (item?.coupon))?.coupon?.code;
           await vm.$http.post(couponApi, { data: { code } }).then(() => {});
         }
@@ -234,8 +240,10 @@ export default {
       this.total = 0;
       this.final_total = 0;
       this.cart.carts.forEach((item) => {
-        this.total += item.qty * item.total;
-        this.final_total += item.qty * item.final_total;
+        const price = item.product.price ? item.product.price : item.product.origin_price;
+        const coupon = item?.coupon?.percent ?? 100;
+        this.total += item.qty * price;
+        this.final_total += (item.qty * price * coupon) / 100;
       });
     },
   },

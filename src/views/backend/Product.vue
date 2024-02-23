@@ -17,7 +17,7 @@
           <th width="120">原價</th>
           <th width="120">售價</th>
           <th width="120">是否啟用</th>
-          <th width="80">編輯</th>
+          <th width="120">編輯</th>
         </tr>
       </thead>
       <tbody>
@@ -31,8 +31,10 @@
             <span v-else>未啟用</span>
           </td>
           <td>
-          <button class="btn btn-outline-primary btn-sm" @click="openModal(false,item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="delModal(item)">刪除</button>
+          <button class="btn btn-outline-primary btn-sm mr-1" @click="openModal(false,item)">
+            編輯
+          </button>
+          <button class="btn btn-outline-danger btn-sm" @click="delModal(item)">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -89,12 +91,12 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="image">輸入圖片網址</label>
+                  <label for="imageUrl">輸入圖片網址</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="image"
-                    v-model="temProducts.image"
+                    id="imageUrl"
+                    v-model="temProducts.imageUrl"
                     placeholder="請輸入圖片連結"
                   />
                 </div>
@@ -176,16 +178,6 @@
                 </div>
                 <hr />
                 <div class="form-group">
-                  <label for="description">產品描述</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    id="description"
-                    v-model="temProducts.description"
-                    placeholder="請輸入產品描述"
-                  ></textarea>
-                </div>
-                <div class="form-group">
                   <label for="content">說明內容</label>
                   <textarea
                     type="text"
@@ -193,6 +185,16 @@
                     id="content"
                     v-model="temProducts.content"
                     placeholder="請輸入產品說明內容"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="description">產品描述</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="description"
+                    v-model="temProducts.description"
+                    placeholder="請輸入產品描述"
                   ></textarea>
                 </div>
                 <div class="form-group">
@@ -274,7 +276,7 @@ export default {
   },
   methods: {
     getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/products?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/admin/products?page=${page}`;
       this.isLoading = true;
       this.$http.get(api).then((response) => {
         this.isLoading = false;
@@ -297,7 +299,7 @@ export default {
       $('#delProductModal').modal('show');
     },
     delProduct() {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/product/${this.temProducts.id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/admin/product/${this.temProducts.id}`;
       this.$http.delete(api).then((response) => {
         if (response.data.success) {
           $('#delProductModal').modal('hide');
@@ -309,10 +311,10 @@ export default {
       });
     },
     updateProduct() {
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/product`;
+      let api = `${process.env.VUE_APP_APIPATH}/api/admin/product`;
       let httpMethod = 'post';
       if (!this.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/product/${this.temProducts.id}`;
+        api = `${process.env.VUE_APP_APIPATH}/api/admin/product/${this.temProducts.id}`;
         httpMethod = 'put';
       }
       this.$http[httpMethod](api, { data: this.temProducts }).then((response) => {
@@ -330,7 +332,7 @@ export default {
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
       this.status.fileUploading = true;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/admin/upload`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/admin/upload`;
       this.$http
         .post(url, formData, {
           headers: {

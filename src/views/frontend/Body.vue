@@ -244,7 +244,7 @@ export default {
   },
   methods: {
     toProduct(id) {
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUMSTOMPATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/product/${id}`;
       this.$http.get(api).then(() => {
         localStorage.setItem('product', JSON.stringify(id));
         this.$router.push('/introduction');
