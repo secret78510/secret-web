@@ -70,7 +70,7 @@
           <p class="text-right text-primary py-2">(免運費)信用卡付款</p>
           <div class="clearfix py-2">
             <button
-              class="btn btn-outline-primary btn-sm float-right rounded-0"
+              class="btn btn-outline-primary btn-sm float-right rounded-0 btn-custom"
               type="button"
               @click.prevent="addCoupon"
               style="height:28px"
@@ -78,6 +78,7 @@
             <input
               type="text"
               class="float-right rounded-0"
+              style="height:28px"
               width="40%"
               placeholder="請輸入優惠碼"
               v-model="couponCode"
@@ -289,8 +290,10 @@ export default {
     box-shadow: 2px 2px 10px #484891;
   }
 }
-.btn-lg:hover{
-  color: #fff;
+.btn-custom:focus{
+  box-shadow: none !important;
+  color: #fff !important;
+  background-color: #336666 !important;
 }
 .progress-wrap{
   padding-left: 74px;
