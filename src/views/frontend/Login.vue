@@ -1,5 +1,10 @@
 <template>
   <div v-if="!isLogined">
+    <div v-if="isLoading" class="loading">
+      <div class="loading-item fas fas fa-apple-alt"></div>
+      <div class="loading-item fas fa-lemon"></div>
+      <div class="loading-item fas fa-carrot"></div>
+    </div>
     <AlertMessage/>
     <form class="form" @submit.prevent="signin">
       <h1>登入</h1>
@@ -34,6 +39,7 @@ export default {
         password: '',
       },
       isLogined: true,
+      isLoading: false,
     };
   },
   components: {
@@ -42,7 +48,9 @@ export default {
   methods: {
     signin() {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
+      this.isLoading = true;
       this.$http.post(api, this.user).then((response) => {
+        this.isLoading = false;
         if (response.data.success) {
           const { token } = response.data;
           const { expired } = response.data;
