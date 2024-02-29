@@ -151,66 +151,33 @@
       </div>
     </section>
     <section>
-      <div class="container-fiuld">
+      <div v-if="products.length > 0" class="container-fiuld">
         <h2 class="text-center text-white popular">熱門商品</h2>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+            <li
+             v-for="(product, index ) in products"
+             :key="product.id"
+             :class="{ 'active': index === 0 }"
+             data-target="#carouselExampleIndicators"
+             data-slide-to="0"
+             class="active"></li>
           </ol>
           <div class="carousel-inner">
             <a
               href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover active"
-              @click.prevent="toProduct('-M2r-LQ-vNaWu82QAwWw')"
-              style="background-image:url(https://images.unsplash.com/photo-1528632735386-3bb3ead106f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80);"
+              v-for="(product, index ) in products"
+              :key="product.id"
+              class="carousel-item header-carousel-item w-100 bg-cover"
+              :class="{ 'active': index === 0 }"
+              @click.prevent="toProduct(product.id)"
+              :style="{backgroundImage: `url(${product.imageUrl})`}"
             ></a>
             <div class="carousel-caption px-3">
               <h5>本店熱銷商品</h5>
               <p>本店目前熱門商品促銷中貨品足，歡迎訂購，全商品無農藥現採冷藏低溫運送免費宅配到府，
                 讓你吃的安心用的放心，還不快點擊圖片圖片購買。</p>
             </div>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2qxexkIDlVRxufaTwn')"
-              style="background-image:url(https://images.unsplash.com/photo-1501777814630-33bc4a3c3ee7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)"
-            ></a>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2qx10PqcZH78TmvA38')"
-              style="background-image:url(https://images.unsplash.com/photo-1543528176-61b239494933?ixlib=rb-1.2.1&auto=format&fit=crop&w=1953&q=80);"
-            ></a>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2r0HB7uNuCIzINk1zn')"
-              style="background-image:url(https://images.unsplash.com/photo-1501746877-14782df58970?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);"
-            ></a>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2r1xHOpHfziD8qorvr')"
-              style="background-image:url(https://images.unsplash.com/photo-1535041422672-8c3254ab3abe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);"
-            ></a>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2r1aExDmt-I8eLLyJc')"
-              style="background-image:url(https://images.unsplash.com/photo-1565685225009-fc85d9109c80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);"
-            ></a>
-            <a
-              href="#"
-              class="carousel-item header-carousel-item w-100 bg-cover"
-              @click.prevent="toProduct('-M2r1mcRzBAHXqH4m9Wc')"
-              style="background-image:url(https://images.unsplash.com/photo-1567375698348-5d9d5ae99de0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);"
-            ></a>
           </div>
           <a
             class="carousel-control-prev"
@@ -240,9 +207,22 @@ import $ from 'jquery';
 
 export default {
   data() {
-    return {};
+    return {
+      isLoading: false,
+      products: [],
+    };
   },
   methods: {
+    getProducts() {
+      const api = `${process.env.VUE_APP_APIPATH}/api/products/all`;
+      this.isLoading = true;
+      this.axios.get(api).then((response) => {
+        const maxLangth = 7;
+        this.isLoading = false;
+        this.products = response.data.products;
+        this.products.length = this.products.length > maxLangth ? maxLangth : this.products.length;
+      });
+    },
     toProduct(id) {
       const api = `${process.env.VUE_APP_APIPATH}/api/product/${id}`;
       this.$http.get(api).then(() => {
@@ -270,6 +250,9 @@ export default {
         animateRight.style.transform = 'translateX(0)';
       }
     },
+  },
+  created() {
+    this.getProducts();
   },
   mounted() {
     window.addEventListener('scroll', this.imgAnimate, true);
