@@ -15,7 +15,7 @@
               消費滿100元還送一支棒棒糖(會在運送時一同寄去)<br><br>
               這次限量3000名<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1575224300306-1b8da36134ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" alt="">
+            <img class="newsImg-fit" src="~@/assets/img/Lollipop.png" alt="">
             <br>
             <br>
             <p>
@@ -47,7 +47,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1533234427049-9e9bb093186d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/ChildrensDayBg.png);
 }
 p{
   font-size: 20px;

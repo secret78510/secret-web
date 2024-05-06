@@ -13,7 +13,7 @@
               發瘋了 第一次全館消費打三折<br><br>
               還送橘子包你大吉大利(會在運送時一同寄去)<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1575411619998-a654a55391da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="">
+            <img class="newsImg-fit" src="~@/assets/img/goodLuck.png" alt="">
             <br>
             <br>
             <p>
@@ -46,7 +46,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1576948794092-074fed67dea4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/NewYearsEveBg.png);
 }
 p{
   font-size: 20px;

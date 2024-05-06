@@ -15,7 +15,7 @@
               消費滿1000元送神秘小禮物<br><br>
               這次無限名額<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="">
+            <img class="newsImg-fit" src="~@/assets/img/gift.png" alt="">
             <br>
             <br>
             <p>
@@ -46,7 +46,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1472195870936-d88b0d4c1b41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/sercretTenYearBg.png);
 }
 p{
   font-size: 20px;

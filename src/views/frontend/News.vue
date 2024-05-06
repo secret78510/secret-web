@@ -9,7 +9,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1563262924-641a8b3d397f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+              src="~@/assets/img/childrensDay.png"
               alt
             />
           </div>
@@ -31,7 +31,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+              src="~@/assets/img/valentinesDay.png"
               alt
             />
           </div>
@@ -50,7 +50,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1579626362137-b6d68a1ebba6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
+              src="~@/assets/img/startDay.png"
               alt
             />
           </div>
@@ -69,7 +69,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1549888834-3ec93abae044?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+              src="~@/assets/img/newYearsEve.png"
               alt
             />
           </div>
@@ -88,7 +88,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+              src="~@/assets/img/christmas.png"
               alt
             />
           </div>
@@ -107,7 +107,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1489450278009-822e9be04dff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80"
+              src="~@/assets/img/productList.png"
               alt
             />
           </div>
@@ -129,7 +129,7 @@
           <div class="col-md-4 px-0">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1868&q=80"
+              src="~@/assets/img/teachersDay.png"
               alt
             />
           </div>
@@ -166,7 +166,7 @@ export default {
   text-decoration: none;
 }
 .img {
-  background-image: url(https://images.unsplash.com/photo-1549007953-2f2dc0b24019?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/newsBg.png);
   width: 100%;
   height: 30vw;
   background-position: center;

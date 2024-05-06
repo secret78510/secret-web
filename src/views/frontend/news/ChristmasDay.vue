@@ -14,7 +14,7 @@
               消費滿1000元還送一顆聖誕樹(會在運送時一同寄去)<br><br>
               這次不限名額<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1575110170113-a72f38ee39b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=669&q=80" alt="">
+            <img class="newsImg-fit" src="~@/assets/img/ChristmasTree.png" alt="">
             <br>
             <br>
             <p>
@@ -46,7 +46,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1478719059408-592965723cbc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/ChristmasDayBg.png);
 }
 p{
   font-size: 20px;

@@ -131,19 +131,19 @@
         <div class="row">
           <div class="col-md-6 pb-4">
             <div class="img-container my-1 rounded img-scroll-left" @click="toProductList('水果')">
-              <div
+              <img
                 class="img-animation"
-                style="background-image:url(https://images.unsplash.com/photo-1568569350062-ebfa3cb195df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80)"
-              ></div>
+                src="~@/assets/img/fruit.png"
+              />
               <div class="img-text">水果</div>
             </div>
           </div>
           <div class="col-md-6 pb-3">
             <div class="img-container my-1 rounded img-scroll-right" @click="toProductList('蔬菜')">
-              <div
+              <img
                 class="img-animation"
-                style="background-image:url(https://images.unsplash.com/photo-1565205331023-64fe9059c323?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=632&q=80)"
-              ></div>
+                src="~@/assets/img/vegetable.png"
+              />
               <div class="img-text">蔬菜</div>
             </div>
           </div>
@@ -305,7 +305,7 @@ export default {
   }
 }
 .img {
-  background-image: url(https://images.unsplash.com/photo-1535227798054-e4373ef3795a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1944&q=80);
+  background-image: url(~@/assets/img/homeBg.png);
   width: 100%;
   height: 55vh;
   background-size: cover;
@@ -390,7 +390,7 @@ export default {
 .content {
   overflow: hidden;
   .backgroundImg {
-    background-image: url(https://images.unsplash.com/photo-1559556951-eeea4c5ba3f0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=865&q=80);
+    background-image: url(~@/assets/img/pumpkin.png);
     background-position: center;
     background-size: cover;
     position: absolute;
@@ -442,7 +442,7 @@ export default {
 }
 @media (min-width: 500px) {
   .img {
-    background-image: url(https://images.unsplash.com/photo-1535227798054-e4373ef3795a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1944&q=80);
+    background-image: url(~@/assets/img/homeBg.png);
     height: 80vh;
     width: 100%;
     background-position: bottom;

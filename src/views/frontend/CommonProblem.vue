@@ -305,7 +305,7 @@ export default {
   margin-top: 67px;
 }
 .img {
-  background-image: url(https://images.unsplash.com/photo-1580722434936-3d175913fbdc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/CommonProblemBg.png);
   width: 100%;
   height: 30vw;
   background-position: center;

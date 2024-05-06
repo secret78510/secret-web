@@ -17,7 +17,7 @@
           <div class="col-md-4 d-none  d-md-block mt-5">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+              src="~@/assets/img/brandCreate.png"
               alt
             />
           </div>
@@ -42,21 +42,21 @@
           <div class="col-md-4 animate pt-2">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1551892166-79ede30ac8aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              src="~@/assets/img/youSeeA.png"
               alt
             />
           </div>
           <div class="col-md-4 animate pt-2">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1423483641154-5411ec9c0ddf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+              src="~@/assets/img/youSeeB.png"
               alt
             />
           </div>
           <div class="col-md-4 animate pt-2">
             <img
               class="img-fit"
-              src="https://images.unsplash.com/photo-1585254589738-aff16702b974?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+              src="~@/assets/img/youSeeC.png"
               alt
             />
           </div>
@@ -64,8 +64,7 @@
       </div>
     </section>
     <section
-      class="bgAnimation bg-img mb-5 py-5"
-      style="background-image: url(https://images.unsplash.com/photo-1490713230272-bf236b61ad43?ixlib=rb-1.2.1&auto=format&fit=crop&w=1789&q=80);"
+      class="bgAnimation bubbleBg bg-img mb-5 py-5"
     >
       <div class="container">
         <div class="row">
@@ -131,13 +130,16 @@ export default {
 
 <style lang="scss" scoped>
 .wrap {
-  background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
+  background-image: url(~@/assets/img/brandStoreBg.png);
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   margin-top: 67px;
   overflow: hidden;
+}
+.bubbleBg{
+  background-image: url(~@/assets/img/bubble.png);
 }
 .logo {
   padding: 30px 25px;
@@ -158,14 +160,7 @@ export default {
   transition: all 1s;
   transform: translateY(50px);
 }
-.header-img {
-  background-image: url(https://images.unsplash.com/photo-1549891174-94cb78f5df24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);
-  background-position: right 0;
-  background-size: cover;
-  position: absolute;
-  height: 300px;
-  width: 100%;
-}
+
 @media (max-width: 768px) {
   .img-fit {
     margin-left: 20px;

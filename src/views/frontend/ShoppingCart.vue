@@ -262,7 +262,7 @@ export default {
   margin-top: 67px;
 }
 .img {
-  background-image: url(https://images.unsplash.com/photo-1437750635120-f98648c0fe03?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/shoppingCartBg.png);
   width: 100%;
   height: 25vw;
   background-position: center;

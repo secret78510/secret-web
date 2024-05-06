@@ -15,7 +15,7 @@
               消費滿300元還送一盒鉛筆盒(會在運送時一同寄去)<br><br>
               這次限量3000名<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1589816614514-e92da2c6ccfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=635&q=80" alt="">
+            <img class="newsImg-fit" src="~@/assets/img/pencil.png" alt="">
             <br>
             <br>
             <p>
@@ -47,7 +47,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1528701202755-cf9158dc3da6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/classroom.png);
 }
 p{
   font-size: 20px;

@@ -12,7 +12,7 @@
               本館全面七折外<br><br>
               滿500元還送一朵玫瑰花(會在運送時一同寄去)<br><br>
             </p>
-            <img class="newsImg-fit" src="https://images.unsplash.com/photo-1487035242901-d419a42d17af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="">
+            <img class="newsImg-fit"  src="~@/assets/img/valentinesDay.png" alt="">
             <br>
             <br>
             <p>幫助那些單身的女孩告白<br><br>
@@ -46,7 +46,7 @@ export default {
   margin-top: 67px;
 }
 .newsImg {
-  background-image: url(https://images.unsplash.com/photo-1517938833378-3c78e6c8ddf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-image: url(~@/assets/img/valentinesDayBg.png);
 }
 p{
   font-size: 20px;
